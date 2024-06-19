@@ -2,14 +2,13 @@ package com.ytikhov.tests.deserialization;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.ytikhov.dto.Diplom;
 import com.ytikhov.dto.Passport;
 import com.ytikhov.dto.Person;
-import com.ytikhov.jackson.deserializer.PersonPassportBaseDeserializer;
+import com.ytikhov.jackson.deserializer.PersonDeserializerResolver;
 import com.ytikhov.tests.util.FileUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -22,7 +21,7 @@ class PersonDeserializationTests {
     @BeforeAll
     static void init() {
         SimpleModule sm = new SimpleModule();
-        sm.setDeserializers(new PersonPassportBaseDeserializer());
+        sm.setDeserializers(new PersonDeserializerResolver());
         om.registerModule(sm);
         om.findAndRegisterModules();
     }
@@ -33,8 +32,7 @@ class PersonDeserializationTests {
 
         Person<Passport> passportPerson = null;
         try {
-            JavaType passportType = TypeFactory.defaultInstance().constructParametricType(Person.class, Passport.class);
-            passportPerson = om.readValue(jsonString, passportType);
+            passportPerson = om.readValue(jsonString, new TypeReference<Person<Passport>>() {});
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -48,8 +46,7 @@ class PersonDeserializationTests {
 
         Person<Passport> passportPerson = null;
         try {
-            JavaType passportType = TypeFactory.defaultInstance().constructParametricType(Person.class, Passport.class);
-            passportPerson = om.readValue(jsonString, passportType);
+            passportPerson = om.readValue(jsonString, new TypeReference<Person<Passport>>() {});
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -63,8 +60,7 @@ class PersonDeserializationTests {
 
         Person<Passport> passportPerson = null;
         try {
-            JavaType passportType = TypeFactory.defaultInstance().constructParametricType(Person.class, Passport.class);
-            passportPerson = om.readValue(jsonString, passportType);
+            passportPerson = om.readValue(jsonString, new TypeReference<Person<Passport>>() {});
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -78,8 +74,7 @@ class PersonDeserializationTests {
 
         Person<Diplom> diplomPerson = null;
         try {
-            JavaType diplomType = TypeFactory.defaultInstance().constructParametricType(Person.class, Diplom.class);
-            diplomPerson = om.readValue(jsonString, diplomType);
+            diplomPerson = om.readValue(jsonString, new TypeReference<Person<Diplom>>() {});
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

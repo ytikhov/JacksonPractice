@@ -11,9 +11,9 @@ import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toMap;
 
-public class PersonPassportBaseDeserializer extends SimpleDeserializers {
+public class PersonDeserializerResolver extends SimpleDeserializers {
     private final Map<JavaType, StdDeserializer<? extends Person<?>>> deserializers;
-    public PersonPassportBaseDeserializer() {
+    public PersonDeserializerResolver() {
         deserializers = Stream.of(
                 new PersonPassportDeserializer(),
                 new PersonDiplomDeserializer()
