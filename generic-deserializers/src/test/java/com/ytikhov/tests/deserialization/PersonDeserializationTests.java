@@ -2,9 +2,10 @@ package com.ytikhov.tests.deserialization;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.ytikhov.dto.Diplom;
 import com.ytikhov.dto.Passport;
 import com.ytikhov.dto.Person;
@@ -32,7 +33,10 @@ class PersonDeserializationTests {
 
         Person<Passport> passportPerson = null;
         try {
-            passportPerson = om.readValue(jsonString, new TypeReference<Person<Passport>>() {});
+            JavaType personPassportType = TypeFactory
+                    .defaultInstance()
+                    .constructParametricType(Person.class, Passport.class);
+            passportPerson = om.readValue(jsonString, personPassportType);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -46,7 +50,10 @@ class PersonDeserializationTests {
 
         Person<Passport> passportPerson = null;
         try {
-            passportPerson = om.readValue(jsonString, new TypeReference<Person<Passport>>() {});
+            JavaType personPassportType = TypeFactory
+                    .defaultInstance()
+                    .constructParametricType(Person.class, Passport.class);
+            passportPerson = om.readValue(jsonString, personPassportType);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -60,7 +67,10 @@ class PersonDeserializationTests {
 
         Person<Passport> passportPerson = null;
         try {
-            passportPerson = om.readValue(jsonString, new TypeReference<Person<Passport>>() {});
+            JavaType personPassportType = TypeFactory
+                    .defaultInstance()
+                    .constructParametricType(Person.class, Passport.class);
+            passportPerson = om.readValue(jsonString, personPassportType);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -74,7 +84,10 @@ class PersonDeserializationTests {
 
         Person<Diplom> diplomPerson = null;
         try {
-            diplomPerson = om.readValue(jsonString, new TypeReference<Person<Diplom>>() {});
+            JavaType personPassportType = TypeFactory
+                    .defaultInstance()
+                    .constructParametricType(Person.class, Diplom.class);
+            diplomPerson = om.readValue(jsonString, personPassportType);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
